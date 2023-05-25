@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 public class RoomId {
     private static final String INIT_URL = "https://api.live.bilibili.com/room/v1/Room/room_init";
-    private static final Gson GSON = new Gson();
     private static final Pattern EXTRACT_ROOM_ID = Pattern.compile("\"room_id\":(\\d+),");
 
     public static int getRealRoomId(int roomId) {

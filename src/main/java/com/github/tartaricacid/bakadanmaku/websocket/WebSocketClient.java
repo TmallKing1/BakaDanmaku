@@ -18,6 +18,7 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
 import java.util.concurrent.Executors;
@@ -47,7 +48,7 @@ public class WebSocketClient {
                 .channel(NioSocketChannel.class)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel ch) {
+                    protected void initChannel(@NotNull SocketChannel ch) {
                         ChannelPipeline pipe = ch.pipeline();
                         pipe.addLast(
                                 sslCtx.newHandler(ch.alloc(), uri.getHost(), uri.getPort()),

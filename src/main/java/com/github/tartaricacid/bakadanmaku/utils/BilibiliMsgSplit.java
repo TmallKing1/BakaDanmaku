@@ -6,7 +6,7 @@ public final class BilibiliMsgSplit {
     private static final Pattern SPLIT = Pattern.compile("}.{16}\\{\"cmd\"");
 
     public static String[] split(String msg) {
-        msg = msg.replaceAll("\n", "\u0020").replaceAll("\r", "\u0020");
+        msg = msg.replaceAll("\n", " ").replaceAll("\r", " ");
         String[] split = SPLIT.split(msg);
         if (split.length > 1) {
             for (int i = 0; i < split.length; i++) {

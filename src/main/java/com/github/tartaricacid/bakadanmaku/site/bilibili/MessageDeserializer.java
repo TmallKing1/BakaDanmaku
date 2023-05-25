@@ -19,47 +19,48 @@ public class MessageDeserializer implements JsonDeserializer<String> {
             JsonObject data = json.getAsJsonObject();
             String type = data.get("cmd").getAsString();
             switch (type) {
-                case "DANMU_MSG":
+                case "DANMU_MSG" -> {
                     if (config.getDanmaku().isShow()) {
                         return handDanmaku(data);
                     }
-                    break;
-                case "SEND_GIFT":
+                }
+                case "SEND_GIFT" -> {
                     if (config.getGift().isShow()) {
                         return handGift(data);
                     }
-                    break;
-                case "COMBO_SEND":
+                }
+                case "COMBO_SEND" -> {
                     if (config.getGift().isShow()) {
                         return handComboGift(data);
                     }
-                    break;
-                case "INTERACT_WORD":
+                }
+                case "INTERACT_WORD" -> {
                     if (config.getEnter().isShowNormal()) {
                         return handNormalEnter(data);
                     }
-                    break;
-                case "WELCOME":
+                }
+                case "WELCOME" -> {
                     if (config.getEnter().isShowNormal()) {
                         return handWelcome(data);
                     }
-                    break;
-                case "WELCOME_GUARD":
+                }
+                case "WELCOME_GUARD" -> {
                     if (config.getEnter().isShowGuard()) {
                         return handGuardWelcome(data);
                     }
-                    break;
-                case "GUARD_BUY":
+                }
+                case "GUARD_BUY" -> {
                     if (config.getGuard().isShow()) {
                         return handBuyGuard(data);
                     }
-                    break;
-                case "SUPER_CHAT_MESSAGE":
+                }
+                case "SUPER_CHAT_MESSAGE" -> {
                     if (config.getSc().isShow()) {
                         return handSuperChat(data);
                     }
-                    break;
-                default:
+                }
+                default -> {
+                }
             }
         }
         return null;
@@ -140,32 +141,24 @@ public class MessageDeserializer implements JsonDeserializer<String> {
         JsonObject data = dataIn.getAsJsonObject("data");
         String userName = data.get("username").getAsString();
         int level = data.get("guard_level").getAsInt();
-        switch (level) {
-            case 1:
-                return String.format(config.getEnter().getGuardStyle1Formatted(), userName);
-            case 2:
-                return String.format(config.getEnter().getGuardStyle2Formatted(), userName);
-            case 3:
-                return String.format(config.getEnter().getGuardStyle3Formatted(), userName);
-            default:
-                return null;
-        }
+        return switch (level) {
+            case 1 -> String.format(config.getEnter().getGuardStyle1Formatted(), userName);
+            case 2 -> String.format(config.getEnter().getGuardStyle2Formatted(), userName);
+            case 3 -> String.format(config.getEnter().getGuardStyle3Formatted(), userName);
+            default -> null;
+        };
     }
 
     private String handBuyGuard(JsonObject dataIn) {
         JsonObject data = dataIn.getAsJsonObject("data");
         String userName = data.get("username").getAsString();
         int level = data.get("guard_level").getAsInt();
-        switch (level) {
-            case 1:
-                return String.format(config.getGuard().getGuardStyle1Formatted(), userName);
-            case 2:
-                return String.format(config.getGuard().getGuardStyle2Formatted(), userName);
-            case 3:
-                return String.format(config.getGuard().getGuardStyle3Formatted(), userName);
-            default:
-                return null;
-        }
+        return switch (level) {
+            case 1 -> String.format(config.getGuard().getGuardStyle1Formatted(), userName);
+            case 2 -> String.format(config.getGuard().getGuardStyle2Formatted(), userName);
+            case 3 -> String.format(config.getGuard().getGuardStyle3Formatted(), userName);
+            default -> null;
+        };
     }
 
     private String handSuperChat(JsonObject dataIn) {

@@ -95,15 +95,16 @@ public class BilibiliSite implements ISite {
             ByteBuf data = webSocketFrame.content();
             int protocol = data.getShort(PROTOCOL_VERSION_OFFSET);
             switch (protocol) {
-                case JSON_PROTOCOL_VERSION:
+                case JSON_PROTOCOL_VERSION, POPULAR_PROTOCOL_VERSION -> {
                     return;
-                case POPULAR_PROTOCOL_VERSION:
-                    //handPopularMessage(data);
-                    return;
-                case BUFFER_PROTOCOL_VERSION:
+                }
+                //handPopularMessage(data);
+                case BUFFER_PROTOCOL_VERSION -> {
                     handBufferMessage(data);
                     return;
-                default:
+                }
+                default -> {
+                }
             }
         }
     }

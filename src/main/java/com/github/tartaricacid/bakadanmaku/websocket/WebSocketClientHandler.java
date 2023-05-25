@@ -7,6 +7,7 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.util.CharsetUtil;
+import org.jetbrains.annotations.NotNull;
 
 public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> {
     private final ISite site;
@@ -29,7 +30,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) {
+    public void channelInactive(@NotNull ChannelHandlerContext ctx) {
         BakaDanmaku.LOGGER.info("WebSocket Client disconnected!");
         BakaDanmaku.HEART_BEAT_TASK.cancel(true);
     }
